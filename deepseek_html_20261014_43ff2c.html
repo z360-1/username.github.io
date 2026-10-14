@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Қоғамның әлеуметтік нормалары жүйесіндегі құқық</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --navy: #0a1e3f;
+    --navy-light: #14315c;
+    --gold: #d4af37;
+    --gold-light: #f0d97a;
+    --white: #f5f7fa;
+    --text-muted: #c5d0e0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: #050d1e;
+    color: var(--white);
+    overflow: hidden;
+    height: 100vh;
+  }
+  
+  .presentation {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 55px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateX(40px);
+    background: linear-gradient(135deg, #0a1e3f 0%, #050d1e 100%);
+    overflow-y: auto;
+  }
+  
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+  }
+  
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,175,55,0.14) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .slide::after {
+    content: '';
+    position: absolute;
+    bottom: -120px;
+    left: -120px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .bg-watermark {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.05;
+    font-size: 320px;
+    z-index: 1;
+    pointer-events: none;
+    line-height: 1;
+  }
+  
+  .slide-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .slide-number {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    padding: 7px 16px;
+    border: 1.5px solid var(--gold);
+    border-radius: 20px;
+    background: rgba(212,175,55,0.08);
+  }
+  
+  .slide-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.5px;
+  }
+  
+  .slide-title .accent { color: var(--gold); }
+  
+  .gold-line {
+    height: 3px;
+    width: 70px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    border-radius: 2px;
+    margin-bottom: 22px;
+  }
+  
+  .slide-content {
+    flex: 1;
+    display: flex;
+    gap: 30px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .content-left { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .content-right { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  
+  .text-block {
+    font-size: 19px;
+    line-height: 1.7;
+    color: var(--white);
+  }
+  
+  .highlight {
+    color: var(--gold);
+    font-weight: 600;
+  }
+  
+  /* Cards — FONT ENLARGED */
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,175,55,0.25);
+    border-left: 4px solid var(--gold);
+    border-radius: 10px;
+    padding: 18px 22px;
+    backdrop-filter: blur(4px);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateX(5px);
+    border-color: var(--gold);
+  }
+  
+  .card-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .card-title .icon { font-size: 22px; }
+  
+  .card-text {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+  
+  .card-text strong { color: var(--white); }
+  
+  .example-box {
+    background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(212,175,55,0.04));
+    border: 1px dashed var(--gold);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 16px;
+    line-height: 1.65;
+    margin-top: auto;
+  }
+  
+  .example-box .label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+  }
+  
+  .example-box .text { color: var(--text-muted); }
+  .example-box .text strong { color: var(--white); }
+  
+  /* ============ TITLE SLIDE ============ */
+  .title-slide {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(ellipse at center, #14315c 0%, #0a1e3f 40%, #050d1e 100%);
+    padding: 40px;
+  }
+  
+  .title-slide .scales-svg {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 18px;
+    filter: drop-shadow(0 0 30px rgba(212,175,55,0.55));
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .title-slide h1 {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--white);
+    max-width: 1100px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+  }
+  
+  .title-slide h1 .gold { color: var(--gold); }
+  
+  .title-divider {
+    width: 200px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 20px;
+  }
+  
+  .title-slide .subtitle {
+    font-size: 20px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  
+  .title-slide .subtitle-2 {
+    font-size: 15px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    margin-top: 25px;
+    padding: 15px 30px;
+    border: 1px solid rgba(212,175,55,0.4);
+    border-radius: 30px;
+    display: inline-block;
+  }
+  
+  .deco-row {
+    display: flex;
+    gap: 40px;
+    margin-top: 25px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .deco-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .deco-item svg { width: 50px; height: 50px; opacity: 0.85; }
+  
+  .deco-item span {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  
+  /* ============ TABLE — FONT ENLARGED ============ */
+  .table-wrap {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(212,175,55,0.3);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  
+  thead { background: rgba(212,175,55,0.18); }
+  
+  th {
+    padding: 13px 14px;
+    text-align: left;
+    color: var(--gold-light);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--gold);
+  }
+  
+  td {
+    padding: 12px 14px;
+    color: var(--text-muted);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    line-height: 1.55;
+    font-size: 14.5px;
+  }
+  
+  td:first-child { color: var(--white); font-weight: 600; }
+  tr:hover td { background: rgba(212,175,55,0.05); }
+  
+  /* ============ VENN ============ */
+  .venn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    min-height: 300px;
+  }
+  
+  .venn-circle {
+    width: 270px;
+    height: 270px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 22px;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+  }
+  
+  .venn-law {
+    background: rgba(212,175,55,0.22);
+    border: 2px solid var(--gold);
+    color: var(--gold-light);
+    margin-right: -70px;
+  }
+  
+  .venn-morality {
+    background: rgba(20,49,92,0.85);
+    border: 2px solid #4a7bc8;
+    color: #a8c4f0;
+  }
+  
+  .venn-center {
+    position: absolute;
+    font-size: 14px;
+    color: var(--white);
+    font-weight: 700;
+    z-index: 3;
+    text-align: center;
+    max-width: 130px;
+    line-height: 1.45;
+  }
+  
+  /* ============ FUNCTIONS ============ */
+  .functions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .func-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,175,55,0.25);
+    border-radius: 14px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .func-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(212,175,55,0.15);
+  }
+  
+  .func-icon-svg {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 14px;
+    display: block;
+  }
+  
+  .func-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  
+  .func-text {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+  
+  /* ============ INFO GRID ============ */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    width: 100%;
+  }
+  
+  .info-item {
+    display: flex;
+    gap: 14px;
+    padding: 16px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    border-left: 4px solid var(--gold);
+    align-items: flex-start;
+  }
+  
+  .info-icon-svg { width: 46px; height: 46px; flex-shrink: 0; }
+  
+  .info-body h4 {
+    font-size: 17px;
+    color: var(--gold-light);
+    margin-bottom: 5px;
+  }
+  
+  .info-body p {
+    font-size: 14.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  
+  /* ============ STATS ============ */
+  .stats-row {
+    display: flex;
+    gap: 18px;
+    width: 100%;
+    margin-top: 8px;
+  }
+  
+  .stat-box {
+    flex: 1;
+    background: rgba(212,175,55,0.08);
+    border: 1px solid rgba(212,175,55,0.3);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+  }
+  
+  .stat-num {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  
+  .stat-lbl {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  
+  /* ============ CONCLUSION ============ */
+  .conclusion-box {
+    background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.03));
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 32px 40px;
+    text-align: center;
+    margin: auto;
+    max-width: 900px;
+  }
+  
+  .conclusion-box .quote {
+    font-size: 24px;
+    line-height: 1.55;
+    color: var(--white);
+    font-style: italic;
+    margin-bottom: 18px;
+  }
+  
+  .conclusion-box .quote::before {
+    content: '«';
+    color: var(--gold);
+    font-size: 40px;
+    font-style: normal;
+  }
+  
+  .conclusion-box .quote::after {
+    content: '»';
+    color: var(--gold);
+    font-size: 40px;
+    font-style: normal;
+  }
+  
+  /* ============ REFERENCES ============ */
+  .ref-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 900px;
+  }
+  
+  .ref-item {
+    display: flex;
+    gap: 16px;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    border-left: 4px solid var(--gold);
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    align-items: center;
+  }
+  
+  .ref-num {
+    color: var(--gold);
+    font-weight: 700;
+    flex-shrink: 0;
+    font-size: 17px;
+  }
+  
+  /* ============ TEST QUESTIONS ============ */
+  .test-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+  
+  .test-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,175,55,0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--gold);
+  }
+  
+  .test-q {
+    display: flex;
+    gap: 12px;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.5;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  
+  .test-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  
+  .test-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 20px;
+    margin-left: 40px;
+  }
+  
+  .test-opt {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding: 4px 0;
+  }
+  
+  .test-opt .letter {
+    color: var(--gold);
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  
+  /* ============ NORM TYPE CARDS ============ */
+  .norm-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
+  
+  .norm-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 12px;
+    padding: 18px 14px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .norm-card:hover {
+    border-color: var(--gold);
+    background: rgba(212,175,55,0.08);
+    transform: translateY(-4px);
+  }
+  
+  .norm-card .num-badge {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 50%;
+    background: rgba(212,175,55,0.15);
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .norm-card h4 {
+    font-size: 15px;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  
+  .norm-card p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+  
+  /* ============ ILLUSTRATION ============ */
+  .illus-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .illus-box svg { width: 100%; max-width: 340px; height: auto; }
+  
+  /* Navigation */
+  .nav {
+    position: fixed;
+    bottom: 22px;
+    right: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 100;
+    background: rgba(10,30,63,0.85);
+    padding: 8px 14px;
+    border-radius: 40px;
+    border: 1px solid rgba(212,175,55,0.3);
+    backdrop-filter: blur(10px);
+  }
+  
+  .nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+  }
+  
+  .nav-btn:hover:not(:disabled) {
+    background: var(--gold);
+    color: var(--navy);
+    transform: scale(1.08);
+  }
+  
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  
+  .nav-counter {
+    font-size: 13px;
+    color: var(--white);
+    font-weight: 600;
+    min-width: 50px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  
+  .progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    transition: width 0.4s ease;
+    z-index: 101;
+    box-shadow: 0 0 10px rgba(212,175,55,0.6);
+  }
+  
+  .dots {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+  }
+  
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .dot.active {
+    background: var(--gold);
+    width: 28px;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(212,175,55,0.6);
+  }
+  
+  @media (max-width: 1100px) {
+    .slide { padding: 30px 30px; }
+    .slide-title { font-size: 22px; }
+    .title-slide h1 { font-size: 30px; }
+    .slide-content { flex-direction: column; gap: 16px; }
+    .venn-circle { width: 180px; height: 180px; font-size: 14px; }
+    .norm-cards { grid-template-columns: repeat(2, 1fr); }
+    .test-options { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="presentation" id="presentation">
+
+  <!-- ============ SLIDE 1: TITLE ============ -->
+  <section class="slide title-slide active">
+    <svg class="scales-svg" viewBox="0 0 200 200" fill="none">
+      <defs>
+        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#f0d97a;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#d4af37;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="96" y="40" width="8" height="120" fill="url(#goldGrad)" rx="2"/>
+      <rect x="70" y="160" width="60" height="8" fill="url(#goldGrad)" rx="3"/>
+      <rect x="60" y="170" width="80" height="6" fill="url(#goldGrad)" rx="3"/>
+      <circle cx="100" cy="35" r="10" fill="url(#goldGrad)"/>
+      <rect x="35" y="52" width="130" height="6" fill="url(#goldGrad)" rx="3"/>
+      <line x1="45" y1="58" x2="45" y2="105" stroke="url(#goldGrad)" stroke-width="2"/>
+      <line x1="155" y1="58" x2="155" y2="105" stroke="url(#goldGrad)" stroke-width="2"/>
+      <path d="M20 105 Q45 130 70 105 Z" fill="url(#goldGrad)" opacity="0.85"/>
+      <path d="M130 105 Q155 130 180 105 Z" fill="url(#goldGrad)" opacity="0.85"/>
+    </svg>
+    
+    <h1>Қоғамның әлеуметтік нормалары жүйесіндегі <span class="gold">құқық</span></h1>
+    <div class="title-divider"></div>
+    <p class="subtitle">Құқық теориясы бойынша презентация</p>
+    
+    <div class="deco-row">
+      <div class="deco-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.8">
+          <path d="M12 2 L12 22 M5 6 L19 6 M7 6 L7 14 Q7 16 12 16 Q17 16 17 14 L17 6"/>
+        </svg>
+        <span>Әділет</span>
+      </div>
+      <div class="deco-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.8">
+          <path d="M4 4 H20 V20 H4 Z M8 4 V20 M4 10 H20 M4 14 H20"/>
+        </svg>
+        <span>Заң</span>
+      </div>
+      <div class="deco-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.8">
+          <path d="M12 3 L2 8 L12 13 L22 8 Z M6 10 V17 M12 13 V19 M18 10 V17 M4 20 H20"/>
+        </svg>
+        <span>Сот</span>
+      </div>
+      <div class="deco-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.8">
+          <path d="M12 3 L20 6 V12 Q20 18 12 21 Q4 18 4 12 V6 Z M9 12 L11 14 L15 10"/>
+        </svg>
+        <span>Қорғау</span>
+      </div>
+    </div>
+    
+    <p class="subtitle-2">2026 жыл</p>
+  </section>
+
+  <!-- ============ SLIDE 2: КІРІСПЕ ============ -->
+  <section class="slide">
+    <div class="bg-watermark">⚖️</div>
+    <div class="slide-header">
+      <span class="slide-number">02</span>
+      <h2 class="slide-title">Кіріспе: <span class="accent">нормалар — қоғам тірегі</span></h2>
+    </div>
+    <div class="gold-line"></div>
+    <div class="slide-content">
+      <div class="content-left">
+        <div class="text-block">
+          <p>Қоғам — адамдардың бірлескен өмір сүру нысаны. Ол <span class="highlight">тәртіпсіз, нормасыз</span> өмір сүре алмайды.</p>
+          <p>Әлеуметтік нормалар — адамдардың мінез-құлқын реттейтін, қоғам қабылдаған жалпыға ортақ ережелер жүйесі. Олар қоғамның рухани-мәдени дамуымен бірге қалыптасып, ұрпақтан-ұрпаққа беріледі.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="icon">🎯</span>Нормалардың рөлі</div>
+          <div class="card-text">
+            • Қоғамдағы <strong>тұрақтылықты</strong> сақтайды<br>
+            • Адамдар арасындағы <strong>жанжалды азайтады</strong><br>
+            • <strong>Әділеттілік</strong> пен теңдікті қамтамасыз етеді<br>
+            • Ұрпақтар сабақтастығын жалғастырады
+          </div>
+        </div>
+        <div class="example-box">
+          <span class="label">Мысал</span>
+          <span class="text">Мектептегі <strong>тәртіп ережелері</strong>, жолдағы <strong>бағдаршам</strong>, отбасылық <strong>дәстүрлер</strong> — бәрі әлеуметтік нормалардың көрінісі.</span>
+        </div>
+      </div>
+      <div class="content-right">
+        <div class="illus-box" style="flex:1; min-height:200px;">
+          <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="150" cy="60" r="35" fill="rgba(212,175,55,0.15)" stroke="#d4af37" stroke-width="1.5"/>
+            <circle cx="135" cy="52" r="6" fill="#d4af37"/>
+            <rect x="129" y="60" width="12" height="14" rx="3" fill="#d4af37"/>
+            <circle cx="160" cy="52" r="6" fill="#f0d97a"/>
+            <rect x="154" y="60" width="12" height="14" rx="3" fill="#f0d97a"/>
+            <circle cx="147" cy="48" r="6" fill="#fff" opacity="0.9"/>
+            <rect x="141" y="56" width="12" height="14" rx="3" fill="#fff" opacity="0.9"/>
+            <path d="M150 100 L150 115" stroke="#d4af37" stroke-width="2" marker-end="url(#arrow)"/>
+            <defs>
+              <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#d4af37"/>
+              </marker>
+            </defs>
+            <rect x="40" y="125" width="60" height="40" rx="6" fill="rgba(212,175,55,0.12)" stroke="#d4af37" stroke-width="1.2"/>
+            <text x="70" y="149" text-anchor="middle" fill="#d4af37" font-size="12" font-family="Arial">Құқық</text>
+            <rect x="120" y="125" width="60" height="40" rx="6" fill="rgba(212,175,55,0.12)" stroke="#d4af37" stroke-width="1.2"/>
+            <text x="150" y="149" text-anchor="middle" fill="#d4af37" font-size="12" font-family="Arial">Мораль</text>
+            <rect x="200" y="125" width="60" height="40" rx="6" fill="rgba(212,175,55,0.12)" stroke="#d4af37" stroke-width="1.2"/>
+            <text x="230" y="149" text-anchor="middle" fill="#d4af37" font-size="12" font-family="Arial">Дәстүр</text>
+            <line x1="150" y1="115" x2="70" y2="125" stroke="#d4af37" stroke-width="1" opacity="0.5"/>
+            <line x1="150" y1="115" x2="230" y2="125" stroke="#d4af37" stroke-width="1" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="icon">💡</span>Негізгі ой</div>
+          <div class="card-text" style="color:var(--white);">Нормалар — қоғамның «кодексі». Оларсыз бірлескен өмір <strong>хаостың</strong> алдын ала алмайды.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3: ҰҒЫМ ============ -->
+  <section class="slide">
+    <div class="bg-watermark">📖</div>
+    <div class="slide-header">
+      <span class="slide-number">03</span>
+      <h2 class="slide-title">Әлеуметтік нормалар <span class="accent">ұғымы</span></h2>
+    </div>
+    <div class="gold-line"></div>
+    <div class="slide-content">
+      <div class="content-left">
+        <div class="card" style="border-left-color:var(--gold);">
+          <div class="card-title"><span class="icon">📖</span>Анықтама</div>
+          <div class="card-text" style="font-size:17px; color:var(--white);">
+            <strong>Әлеуметтік нормалар</strong> — қоғамдағы адамдардың мінез-құлқын, қарым-қатынасын реттейтін, тарихи қалыптасқан және қоғам қолдайтын жалпыға бірдей ережелер жүйесі.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="icon">✦</span>Негізгі ерекшеліктері</div>
+          <div class="card-text">
+            • <strong>Жалпыға ортақ сипат</strong> — барлық адамдарға арналған<br>
+            • <strong>Міндеттілік деңгейі әртүрлі</strong> — құқықта қатаң, моральда икемді<br>
+            • <strong>Қоғам қабылдаған ережелер</strong> — қоғамдық келісім негізінде<br>
+            • <strong>Мінез-құлықты бағыттайды</strong> — не істеуге болатынын көрсетеді<br>
+            • <strong>Уақытпен өзгереді</strong> — қоғам дамуымен жаңарады
+          </div>
+        </div>
+        <div class="example-box">
+          <span class="label">Мысал</span>
+          <span class="text">Қонаққа <strong>құрмет көрсету</strong> — қазақ халқының әдет-ғұрып нормасы; кезекте тұру — қоғамдық мораль нормасы.</span>
+        </div>
+      </div>
+      <div class="content-right">
+        <div class="illus-box" style="flex:1; min-height:180px;">
+          <svg viewBox="0 0 400 130" xmlns="http://www.w3.org/2000/svg">
+            <path d="M60 20 L60 110 Q100 100 140 110 L140 20 Q100 30 60 20 Z" fill="rgba(212,175,55,0.15)" stroke="#d4af37" stroke-width="1.5"/>
+            <path d="M140 20 L140 110 Q180 100 220 110 L220 20 Q180 30 140 20 Z" fill="rgba(212,175,55,0.25)" stroke="#d4af37" stroke-width="1.5"/>
+            <line x1="140" y1="20" x2="140" y2="110" stroke="#d4af37" stroke-width="2"/>
+            <line x1="75" y1="45" x2="125" y2="45" stroke="#d4af37" stroke-width="1" opacity="0.6"/>
+            <line x1="75" y1="55" x2="125" y2="55" stroke="#d4af37" stroke-width="1" opacity="0.6"/>
+            <line x1="75" y1="65" x2="115" y2="65" stroke="#d4af37" stroke-width="1" opacity="0.6"/>
+            <line x1="75" y1="75" x2="120" y2="75" stroke="#d4af37" stroke-width="1" opacity="0.6"/>
+            <line x1="155" y1="45" x2="205" y2="45" stroke="#d4af37" stroke-width="1" opacity="0.6"/>
+            <line x1="155" y1="55" x2="205" y2="55" stroke="#d4af37" stroke-width="1" opacity="0.6"/>
+            <line x1="155" y1="65" x2="195" y2="65" stroke="#d4af37" stroke-width="1" opacity="0.6"/>
+            <path d="M240 65 L270 65" stroke="#d4af37" stroke-width="2" marker-end="url(#arrow2)"/>
+            <defs>
+              <marker id="arrow2" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 Z" fill="#d4af37"/>
+              </marker>
+            </defs>
+            <rect x="280" y="35" width="100" height="60" rx="8" fill="rgba(212,175,55,0.15)" stroke="#d4af37" stroke-width="1.5"/>
+            <text x="330" y="62" text-anchor="middle" fill="#f0d97a" font-size="14" font-weight="bold" font-family="Arial">Тәртіп</text>
+            <text x="330" y="80" text-anchor="middle" fill="#c5d0e0" font-size="11" font-family="Arial">+ әділеттілік</text>
+          </svg>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="icon">⚙️</span>Қызметі</div>
+          <div class="card-text">
+            • <strong>Реттеу</strong> — мінез-құлық шегін белгілеу<br>
+            • <strong>Бақылау</strong> — нормалардың орындалуын тексеру<br>
+            • <strong>Тұрақтандыру</strong> — қоғамдық тәртіпті сақтау<br>
+            • <strong>Тәрбиелеу</strong> — адамды қоғамға бейімдеу
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 4: ТҮРЛЕРІ ============ -->
+  <section class="slide">
+    <div class="bg-watermark">🌐</div>
+    <div class="slide-header">
+      <span class="slide-number">04</span>
+      <h2 class="slide-title">Әлеуметтік нормалардың <span class="accent">түрлері</span></h2>
+    </div>
+    <div class="gold-line"></div>
+    <div class="slide-content" style="flex-direction:column; gap:16px;">
+      <div class="norm-cards">
+        <div class="norm-card">
+          <span class="num-badge">⚖️</span>
+          <h4>Құқықтық</h4>
+          <p>Мемлекет белгілеген, заңда көрсетілген міндетті ережелер</p>
+        </div>
+        <div class="norm-card">
+          <span class="num-badge">🤝</span>
+          <h4>Моральдық</h4>
+          <p>Қоғам қалыптастырған ізгілік, ар-ұждан ережелері</p>
+        </div>
+        <div class="norm-card">
+          <span class="num-badge">🎎</span>
+          <h4>Әдет-ғұрып</h4>
+          <p>Тарихи қалыптасқан, ұрпақтан-ұрпаққа берілетін дәстүрлер</p>
+        </div>
+        <div class="norm-card">
+          <span class="num-badge">🕌</span>
+          <h4>Діни</h4>
+          <p>Діни ілімдер негізіндегі мінез-құлық ережелері</p>
+        </div>
+        <div class="norm-card">
+          <span class="num-badge">🏢</span>
+          <h4>Корпоративтік</h4>
+          <p>Ұйым, мекеме ішіндегі ішкі ережелер</p>
+        </div>
+      </div>
+      
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:20%;">Норма түрі</th>
+              <th style="width:50%;">Мазмұны</th>
+              <th style="width:30%;">Мысал</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>⚖️ Құқықтық</td>
+              <td>Мемлекет белгілеген, заңда көрсетілген міндетті ережелер</td>
+              <td>Жол қозғалысы ережесі, салық төлеу</td>
+            </tr>
+            <tr>
+              <td>🤝 Моральдық</td>
+              <td>Қоғам қалыптастырған ізгілік, ар-ұждан ережелері</td>
+              <td>Үлкенді сыйлау, өтірік айтпау</td>
+            </tr>
+            <tr>
+              <td>🎎 Әдет-ғұрып</td>
+              <td>Тарихи қалыптасқан, ұрпақтан-ұрпаққа берілетін дәстүрлер</td>
+              <td>Наурыз мерекелеу, қымыз мұрындық</td>
+            </tr>
+            <tr>
+              <td>🕌 Діни</td>
+              <td>Діни ілімдер негізіндегі мінез-құлық ережелері</td>
+              <td>Ораза ұстау, намаз оқу</td>
+            </tr>
+            <tr>
+              <td>🏢 Корпоративтік</td>
+              <td>Ұйым, мекеме ішіндегі ішкі ережелер</td>
+              <td>Еңбек тәртібі, фирмалық киім</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5: ҚҰҚЫҚ ҰҒЫМЫ ============ -->
+  <section class="slide">
+    <div class="bg-watermark">📜</div>
+    <div class="slide-header">
+      <span class="slide-number">05</span>
+      <h2 class="slide-title"><span class="accent">Құқық</span> ұғымы</h2>
+    </div>
+    <div class="gold-line"></div>
+    <div class="slide-content">
+      <div class="content-left">
+        <div class="card" style="border-left-color:var(--gold);">
+          <div class="card-title"><span class="icon">📚</span>Анықтама</div>
+          <div class="card-text" style="font-size:17px; color:var(--white);">
+            <strong>Құқық</strong> — мемлекет белгілеген немесе санкциялаған, жалпыға міндетті, нормативтік актілерде көрініс табатын, мемлекеттік күшпен қорғалатын әлеуметтік нормалар жүйесі.
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-title"><span class="icon">🔑</span>Негізгі белгілері</div>
+          <div class="card-text">
+            • <strong>Мемлекет белгілейді</strong> — заң шығарушы органдар арқылы<br>
+            • <strong>Жалпыға міндетті</strong> — барлық азаматтарға таралады<br>
+            • <strong>Нормативтік актіде жазылады</strong> — ресми құжат түрінде<br>
+            • <strong>Мемлекет күшімен қорғалады</strong> — бұзғанда жауапкершілік<br>
+            • <strong>Ресми сипатқа ие</strong> — мемлекеттік органдар мойындайды
+          </div>
+        </div>
+        
+        <div class="example-box">
+          <span class="label">Мысал</span>
+          <span class="text">ҚР Конституциясының 1-бабы: «Қазақстан Республикасы — <strong>құқықтық мемлекет</strong>».</span>
+        </div>
+      </div>
+      <div class="content-right">
+        <div class="illus-box" style="flex:1; min-height:180px;">
+          <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="200,15 320,55 80,55" fill="rgba(212,175,55,0.2)" stroke="#d4af37" stroke-width="1.5"/>
+            <rect x="80" y="55" width="240" height="6" fill="#d4af37"/>
+            <rect x="95" y="61" width="14" height="75" fill="rgba(212,175,55,0.15)" stroke="#d4af37" stroke-width="1"/>
+            <rect x="140" y="61" width="14" height="75" fill="rgba(212,175,55,0.15)" stroke="#d4af37" stroke-width="1"/>
+            <rect x="185" y="61" width="14" height="75" fill="rgba(212,175,55,0.15)" stroke="#d4af37" stroke-width="1"/>
+            <rect x="230" y="61" width="14" height="75" fill="rgba(212,175,55,0.15)" stroke="#d4af37" stroke-width="1"/>
+            <rect x="275" y="61" width="14" height="75" fill="rgba(212,175,55,0.15)" stroke="#d4af37" stroke-width="1"/>
+            <rect x="70" y="136" width="260" height="6" fill="#d4af37"/>
+            <rect x="60" y="145" width="280" height="8" fill="rgba(212,175,55,0.5)"/>
+            <line x1="200" y1="15" x2="200" y2="0" stroke="#d4af37" stroke-width="1.5"/>
+            <path d="M200 2 L220 6 L200 10 Z" fill="#d4af37"/>
+            <text x="200" y="130" text-anchor="middle" fill="#c5d0e0" font-size="12" font-family="Arial">СОТ ҒИМАРАТЫ</text>
+          </svg>
+        </div>
+        
+        <div class="card">
+          <div class="card-title"><span class="icon">⚡</span>Қоғамдағы қызметі</div>
+          <div class="card-text">
+            • Тәртіп орнату<br>
+            • Әділеттілікті қамтамасыз ету<br>
+            • Азаматтар құқығын қорғау<br>
+            • Қоғамдық қауіпсіздікті сақтау
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 6: АЙЫРМАШЫЛЫҒЫ ============ -->
+  <section class="slide">
+    <div class="bg-watermark">⚖️</div>
+    <div class="slide-header">
+      <span class="slide-number">06</span>
+      <h2 class="slide-title">Құқықтың басқа нормалардан <span class="accent">айырмашылығы</span></h2>
+    </div>
+    <div class="gold-line"></div>
+    <div class="slide-content" style="flex-direction:column; gap:14px;">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:22%;">Критерий</th>
+              <th style="width:26%;">Құқықтық норма</th>
+              <th style="width:26%;">Моральдық норма</th>
+              <th style="width:26%;">Әдет-ғұрып</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Қалыптасуы</td>
+              <td>Мемлекет белгілейді</td>
+              <td>Қоғам қалыптастырады</td>
+              <td>Тарихи қалыптасады</td>
+            </tr>
+            <tr>
+              <td>Жазылуы</td>
+              <td>Заңда жазбаша</td>
+              <td>Жазбаша емес</td>
+              <td>Жазбаша емес</td>
+            </tr>
+            <tr>
+              <td>Міндеттілігі</td>
+              <td>Жалпыға міндетті</td>
+              <td>Қоғам алдында</td>
+              <td>Дәстүрлі</td>
+            </tr>
+            <tr>
+              <td>Қамтамасыз ету</td>
+              <td>Мемлекет күші</td>
+              <td>Қоғамдық пікір</td>
+              <td>Қоғам мақұлдауы</td>
+            </tr>
+            <tr>
+              <td>Бұзылғанда</td>
+              <td>Заңдық жауапкершілік</td>
+              <td>Айыптау, ұят</td>
+              <td>Сын, сөгіс</td>
+            </tr>
+            <tr>
+              <td>Нақтылығы</td>
+              <td>Нақты, айқын</td>
+              <td>Жалпы сипатта</td>
+              <td>Икемді, дәстүрлі</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div style="display:flex; gap:14px;">
+        <div class="card" style="flex:1;">
+          <div class="card-title"><span class="icon">⚖️</span>Құқық</div>
+          <div class="card-text">Мемлекет кепілдігімен қорғалады</div>
+        </div>
+        <div class="card" style="flex:1; border-left-color:#4a7bc8;">
+          <div class="card-title"><span class="icon">🤝</span>Мораль</div>
+          <div class="card-text">Ар-ұжданмен, қоғам пікірімен</div>
+        </div>
+        <div class="card" style="flex:1; border-left-color:#8a6f3c;">
+          <div class="card-title"><span class="icon">🎎</span>Әдет-ғұрып</div>
+          <div class="card-text">Дәстүр, ұрпақ сабақтастығымен</div>
+        </div>
+      </div>
+      
+      <div class="example-box" style="margin-top:6px;">
+        <span class="label">Мысал</span>
+        <span class="text">Ұрлық жасау — <strong>құқық</strong> бойынша қылмыс (ҚК), <strong>мораль</strong> бойынша — адамгершілікке жат қылық.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 7: ҚҰҚЫҚ ПЕН МОРАЛЬ ============ -->
+  <section class="slide">
+    <div class="bg-watermark">🔗</div>
+    <div class="slide-header">
+      <span class="slide-number">07</span>
+      <h2 class="slide-title">Құқық пен <span class="accent">моральдың</span> байланысы</h2>
+    </div>
+    <div class="gold-line"></div>
+    <div class="slide-content">
+      <div class="content-left" style="justify-content:center; align-items:center;">
+        <div class="venn">
+          <div class="venn-circle venn-law">ҚҰҚЫҚ</div>
+          <div class="venn-center">Ортақ<br>құндылықтар:<br>әділеттілік,<br>теңдік, еркіндік</div>
+          <div class="venn-circle venn-morality">МОРАЛЬ</div>
+        </div>
+      </div>
+      <div class="content-right">
+        <div class="card">
+          <div class="card-title"><span class="icon">🔗</span>Ортақ тұстары</div>
+          <div class="card-text">
+            • <strong>Әділеттілікке</strong> негізделеді<br>
+            • <strong>Жақсылық пен зұлымдықты</strong> ажыратады<br>
+            • <strong>Қоғамдық тәртіпті</strong> сақтайды<br>
+            • <strong>Адам құқығын</strong> қорғайды
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="icon">↔️</span>Айырмашылықтары</div>
+          <div class="card-text">
+            • Құқық — <strong>мемлекет күшімен</strong> қорғалады<br>
+            • Мораль — <strong>ар-ұжданмен</strong> реттеледі<br>
+            • Құқық — <strong>жазбаша</strong>, мораль — жазбаша емес<br>
+            • Құқық бұзылса — <strong>заңды жауапкершілік</strong>
+          </div>
+        </div>
+        <div class="illus-box" style="min-height:120px;">
+          <svg viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="80" cy="60" r="38" fill="rgba(212,175,55,0.15)" stroke="#d4af37" stroke-width="1.5"/>
+            <text x="80" y="58" text-anchor="middle" fill="#d4af37" font-size="14" font-weight="bold" font-family="Arial">ЗАҢ</text>
+            <text x="80" y="76" text-anchor="middle" fill="#c5d0e0" font-size="10" font-family="Arial">Мемлекет</text>
+            <path d="M160 40 Q200 18 240 40 Q200 82 160 40 Z" fill="rgba(212,175,55,0.25)" stroke="#d4af37" stroke-width="1.5"/>
+            <text x="200" y="56" text-anchor="middle" fill="#f0d97a" font-size="12" font-weight="bold" font-family="Arial">ОРТАҚ</text>
+            <text x="200" y="72" text-anchor="middle" fill="#c5d0e0" font-size="10" font-family="Arial">әділеттілік</text>
+            <circle cx="320" cy="60" r="38" fill="rgba(74,123,200,0.2)" stroke="#4a7bc8" stroke-width="1.5"/>
+            <text x="320" y="58" text-anchor="middle" fill="#a8c4f0" font-size="14" font-weight="bold" font-family="Arial">МОРАЛЬ</text>
+            <text x="320" y="76" text-anchor="middle" fill="#c5d0e0" font-size="10" font-family="Arial">Ар-ұждан</text>
+          </svg>
+        </div>
+        <div class="example-box">
+          <span class="label">Мысал</span>
+          <span class="text">Баласына көмектеспеу — <strong>моральдық</strong> жағынан айыпталады; алимент төлемеу — <strong>құқықтық</strong> жауапкершілікке әкеледі.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 8: ФУНКЦИЯЛАРЫ ============ -->
+  <section class="slide">
+    <div class="bg-watermark">⚙️</div>
+    <div class="slide-header">
+      <span class="slide-number">08</span>
+      <h2 class="slide-title">Құқықтың негізгі <span class="accent">қызметтері</span></h2>
+    </div>
+    <div class="gold-line"></div>
+    <div class="slide-content" style="flex-direction:column; justify-content:center; gap:22px;">
+      <div class="functions-grid">
+        <div class="func-card">
+          <svg class="func-icon-svg" viewBox="0 0 64 64" fill="none" stroke="#d4af37" stroke-width="2">
+            <rect x="8" y="8" width="48" height="48" rx="6"/>
+            <line x1="16" y1="20" x2="48" y2="20"/>
+            <line x1="16" y1="30" x2="48" y2="30"/>
+            <line x1="16" y1="40" x2="36" y2="40"/>
+            <circle cx="46" cy="46" r="8" fill="rgba(212,175,55,0.2)"/>
+            <path d="M43 46 L45 48 L49 44" stroke="#d4af37" stroke-width="2"/>
+          </svg>
+          <div class="func-title">Реттеушілік</div>
+          <div class="func-text">Қоғамдық қатынастарды заң арқылы тәртіпке келтіреді, мінез-құлықтың шегін белгілейді.</div>
+        </div>
+        <div class="func-card">
+          <svg class="func-icon-svg" viewBox="0 0 64 64" fill="none" stroke="#d4af37" stroke-width="2">
+            <path d="M32 4 L56 14 V32 Q56 50 32 60 Q8 50 8 32 V14 Z" fill="rgba(212,175,55,0.1)"/>
+            <path d="M22 32 L29 39 L43 25" stroke="#d4af37" stroke-width="3" fill="none"/>
+          </svg>
+          <div class="func-title">Қорғаушылық</div>
+          <div class="func-text">Азаматтардың құқықтарын, бостандықтарын және заңды мүдделерін қорғайды.</div>
+        </div>
+        <div class="func-card">
+          <svg class="func-icon-svg" viewBox="0 0 64 64" fill="none" stroke="#d4af37" stroke-width="2">
+            <path d="M8 24 L32 8 L56 24 L32 40 Z"/>
+            <path d="M14 28 V46 Q32 54 50 46 V28"/>
+            <line x1="32" y1="40" x2="32" y2="56"/>
+            <path d="M22 32 L28 38 L42 26" stroke="#d4af37" stroke-width="2.5"/>
+          </svg>
+          <div class="func-title">Тәрбиелік</div>
+          <div class="func-text">Адамдарды заңға бағынуға, әділеттілікке, жауапкершілікке тәрбиелейді.</div>
+        </div>
+      </div>
+      
+      <div class="example-box" style="margin-top:0;">
+        <span class="label">Нақты мысалдар</span>
+        <span class="text">
+          <strong>Реттеушілік:</strong> жол қозғалысы ережесі жүргізушілер мен жаяу жүргіншілердің мінез-құлқын реттейді. 
+          <strong>Қорғаушылық:</strong> сот шешімімен бұзылған құқық қалпына келтіріледі. 
+          <strong>Тәрбиелік:</strong> мектептегі «Құқық негіздері» сабағы.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 9: КҮНДЕЛІКТІ ӨМІРДЕ ============ -->
+  <section class="slide">
+    <div class="bg-watermark">🏛️</div>
+    <div class="slide-header">
+      <span class="slide-number">09</span>
+      <h2 class="slide-title">Құқықтың <span class="accent">күнделікті өмірдегі</span> көрінісі</h2>
+    </div>
+    <div class="gold-line"></div>
+    <div class="slide-content" style="flex-direction:column; gap:14px;">
+      <div class="info-grid">
+        <div class="info-item">
+          <svg class="info-icon-svg" viewBox="0 0 48 48" fill="none" stroke="#d4af37" stroke-width="1.8">
+            <path d="M6 40 L6 20 L24 8 L42 20 L42 40 Z" fill="rgba(212,175,55,0.1)"/>
+            <rect x="20" y="28" width="8" height="12" fill="#d4af37" opacity="0.4"/>
+            <rect x="12" y="22" width="6" height="6"/>
+            <rect x="30" y="22" width="6" height="6"/>
+            <line x1="4" y1="40" x2="44" y2="40" stroke-width="2"/>
+          </svg>
+          <div class="info-body">
+            <h4>Мектептегі тәртіп</h4>
+            <p>Сабаққа кешікпеу, мұғалімді сыйлау — ішкі тәртіп ережелері.</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <svg class="info-icon-svg" viewBox="0 0 48 48" fill="none" stroke="#d4af37" stroke-width="1.8">
+            <rect x="10" y="4" width="28" height="40" rx="4"/>
+            <circle cx="24" cy="14" r="3" fill="#d4af37"/>
+            <circle cx="24" cy="24" r="3" fill="#d4af37" opacity="0.5"/>
+            <circle cx="24" cy="34" r="3" fill="#d4af37" opacity="0.2"/>
+          </svg>
+          <div class="info-body">
+            <h4>Жол қозғалысы</h4>
+            <p>Бағдаршамды сақтау, қауіпсіздік белдігін тағу — заң талабы.</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <svg class="info-icon-svg" viewBox="0 0 48 48" fill="none" stroke="#d4af37" stroke-width="1.8">
+            <rect x="6" y="16" width="36" height="26" rx="3"/>
+            <line x1="6" y1="24" x2="42" y2="24"/>
+            <circle cx="14" cy="34" r="3" fill="#d4af37"/>
+            <path d="M14 8 L14 16 M34 8 L34 16" stroke-width="2"/>
+          </svg>
+          <div class="info-body">
+            <h4>Қоғамдық орындар</h4>
+            <p>Кітапханада тыныштық сақтау, кезекте тұру — тәртіп нормасы.</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <svg class="info-icon-svg" viewBox="0 0 48 48" fill="none" stroke="#d4af37" stroke-width="1.8">
+            <rect x="8" y="10" width="32" height="28" rx="3"/>
+            <circle cx="18" cy="20" r="4"/>
+            <path d="M14 30 Q18 26 22 30"/>
+            <line x1="28" y1="18" x2="36" y2="18" stroke-width="1.5"/>
+            <line x1="28" y1="24" x2="36" y2="24" stroke-width="1.5"/>
+            <line x1="28" y1="30" x2="36" y2="30" stroke-width="1.5"/>
+          </svg>
+          <div class="info-body">
+            <h4>Азаматтың құқықтары</h4>
+            <p>Білім алу, денсаулық сақтау, сайлау — Конституциялық құқықтар.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-num">🎓</div>
+          <div class="stat-lbl">Білім алу құқығы</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">🏥</div>
+          <div class="stat-lbl">Денсаулық сақтау</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">🗳️</div>
+          <div class="stat-lbl">Сайлау құқығы</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">🏠</div>
+          <div class="stat-lbl">Тұрғын үй құқығы</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 10: ҚР ҚҰҚЫҒЫ ============ -->
+  <section class="slide">
+    <div class="bg-watermark">🇰🇿</div>
+    <div class="slide-header">
+      <span class="slide-number">10</span>
+      <h2 class="slide-title">Қазақстан Республикасындағы <span class="accent">құқықтың маңызы</span></h2>
+    </div>
+    <div class="gold-line"></div>
+    <div class="slide-content">
+      <div class="content-left">
+        <div class="card">
+          <div class="card-title"><span class="icon">📜</span>Конституция — Негізгі Заң</div>
+          <div class="card-text">
+            1995 жылғы 30 тамызда қабылданған ҚР Конституциясы — мемлекеттің негізгі заңы. Онда адам құқықтары мен бостандықтары, мемлекеттік құрылым, билік тармақтары бекітілген.
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-title"><span class="icon">🏛️</span>Заң үстемдігі</div>
+          <div class="card-text">
+            • Барлық мемлекеттік органдар <strong>Конституция мен заңдарға бағынады</strong><br>
+            • Азаматтардың құқықтары мен бостандықтары <strong>мемлекеттік қорғауда</strong><br>
+            • Сот тәуелсіз, әділ шешім қабылдайды<br>
+            • Заң бәріне бірдей қолданылады
+          </div>
+        </div>
+        
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-num">30</div>
+            <div class="stat-lbl">тамыз —<br>Конституция күні</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">98</div>
+            <div class="stat-lbl">баптан<br>тұрады</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">1</div>
+            <div class="stat-lbl">«Құқықтық мемлекет»<br>ұстанымы</div>
+          </div>
+        </div>
+        
+        <div class="example-box">
+          <span class="label">Мысал</span>
+          <span class="text">Конституцияның <strong>14-бабы</strong> — заң мен сот алдында барлығының теңдігі; <strong>30-бабы</strong> — тегін білім алу құқығы.</span>
+        </div>
+      </div>
+      
+      <div class="content-right">
+        <div class="illus-box" style="flex:1; min-height:220px;">
+          <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="20" width="240" height="150" rx="8" fill="#00AFCA" opacity="0.15" stroke="#d4af37" stroke-width="1.5"/>
+            <circle cx="160" cy="70" r="22" fill="none" stroke="#d4af37" stroke-width="2"/>
+            <g stroke="#d4af37" stroke-width="1.5">
+              <line x1="160" y1="42" x2="160" y2="35"/>
+              <line x1="160" y1="98" x2="160" y2="105"/>
+              <line x1="132" y1="70" x2="125" y2="70"/>
+              <line x1="188" y1="70" x2="195" y2="70"/>
+              <line x1="140" y1="50" x2="135" y2="45"/>
+              <line x1="180" y1="50" x2="185" y2="45"/>
+              <line x1="140" y1="90" x2="135" y2="95"/>
+              <line x1="180" y1="90" x2="185" y2="95"/>
+            </g>
+            <path d="M130 130 Q160 110 190 130 Q170 120 160 125 Q150 120 130 130 Z" fill="#d4af37"/>
+            <path d="M160 125 L160 140" stroke="#d4af37" stroke-width="2"/>
+            <path d="M60 150 Q80 140 100 150 Q120 160 140 150 Q160 140 180 150 Q200 160 220 150 Q240 140 260 150" 
+                  stroke="#d4af37" stroke-width="1.5" fill="none" opacity="0.6"/>
+            <text x="160" y="200" text-anchor="middle" fill="#f0d97a" font-size="14" font-weight="bold" font-family="Arial">ҚАЗАҚСТАН РЕСПУБЛИКАСЫ</text>
+            <text x="160" y="220" text-anchor="middle" fill="#c5d0e0" font-size="11" font-family="Arial">Конституциялық негіз</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 11: ҚОРЫТЫНДЫ ============ -->
+  <section class="slide">
+    <div class="bg-watermark">🌟</div>
+    <div class="slide-header">
+      <span class="slide-number">11</span>
+      <h2 class="slide-title"><span class="accent">Қорытынды</span></h2>
+    </div>
+    <div class="gold-line"></div>
+    <div class="slide-content" style="align-items:center; justify-content:center; flex-direction:column; gap:24px;">
+      <div class="conclusion-box">
+        <div class="quote">
+          Құқық — қоғамдық тәртіптің, әділеттіліктің және тұрақтылықтың негізгі кепілі.
+        </div>
+        <p style="color:var(--text-muted); font-size:17px; line-height:1.7;">
+          Құқық әлеуметтік нормалар жүйесінде ерекше орын алады: ол мемлекеттік қорғауға ие жалғыз норма. Құқық пен мораль, әдет-ғұрып, діни нормалар бір-бірін толықтырып, қоғамда <span style="color:var(--gold); font-weight:600;">келісім мен әділеттілік</span> орнатады.
+        </p>
+      </div>
+      
+      <svg width="280" height="60" viewBox="0 0 280 60" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lineGrad" x1="0%" x2="100%">
+            <stop offset="0%" style="stop-color:transparent"/>
+            <stop offset="50%" style="stop-color:#d4af37"/>
+            <stop offset="100%" style="stop-color:transparent"/>
+          </linearGradient>
+        </defs>
+        <line x1="0" y1="30" x2="280" y2="30" stroke="url(#lineGrad)" stroke-width="1.5"/>
+        <circle cx="140" cy="30" r="12" fill="none" stroke="#d4af37" stroke-width="2"/>
+        <path d="M134 30 L138 34 L146 26" stroke="#d4af37" stroke-width="2" fill="none"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 12: ӘДЕБИЕТТЕР + 5 ТЕСТ ============ -->
+  <section class="slide">
+    <div class="bg-watermark">📚</div>
+    <div class="slide-header">
+      <span class="slide-number">12</span>
+      <h2 class="slide-title">Пайдаланылған <span class="accent">әдебиеттер</span> және тест сұрақтары</h2>
+    </div>
+    <div class="gold-line"></div>
+    <div class="slide-content" style="flex-direction:column; gap:14px; overflow-y:auto;">
+      <div class="ref-list" style="max-width:100%;">
+        <div class="ref-item">
+          <span class="ref-num">01</span>
+          <span>Қазақстан Республикасының Конституциясы. — Алматы: Жеті жарғы, 1995.</span>
+        </div>
+        <div class="ref-item">
+          <span class="ref-num">02</span>
+          <span>Ибраева А.С. Құқық теориясы. — Алматы: Қазақ университеті, 2019.</span>
+        </div>
+        <div class="ref-item">
+          <span class="ref-num">03</span>
+          <span>Теория государства и права / под ред. В.М. Корельского. — М.: Норма, 2020.</span>
+        </div>
+      </div>
+      
+      <div style="margin-top:10px;">
+        <div class="card-title" style="color:var(--gold); font-size:19px; margin-bottom:12px;">
+          <span class="icon">📝</span>Тест сұрақтары (5 сұрақ)
+        </div>
+        <div class="test-list">
+          <div class="test-card">
+            <div class="test-q">
+              <span class="test-num">1</span>
+              <span>Әлеуметтік нормалардың қай түрі мемлекеттік күшпен қорғалады?</span>
+            </div>
+            <div class="test-options">
+              <div class="test-opt"><span class="letter">A)</span> Моральдық нормалар</div>
+              <div class="test-opt"><span class="letter">B)</span> Құқықтық нормалар</div>
+              <div class="test-opt"><span class="letter">C)</span> Әдет-ғұрып нормалары</div>
+              <div class="test-opt"><span class="letter">D)</span> Діни нормалар</div>
+            </div>
+          </div>
+          
+          <div class="test-card">
+            <div class="test-q">
+              <span class="test-num">2</span>
+              <span>Құқықтың негізгі белгісіне жатпайтыны қайсы?</span>
+            </div>
+            <div class="test-options">
+              <div class="test-opt"><span class="letter">A)</span> Жалпыға міндеттілік</div>
+              <div class="test-opt"><span class="letter">B)</span> Нормативтік актіде жазылуы</div>
+              <div class="test-opt"><span class="letter">C)</span> Қоғамдық пікірмен қамтамасыз етілуі</div>
+              <div class="test-opt"><span class="letter">D)</span> Мемлекеттік күшпен қорғалуы</div>
+            </div>
+          </div>
+          
+          <div class="test-card">
+            <div class="test-q">
+              <span class="test-num">3</span>
+              <span>Құқық пен моральдың ортақ тұсы қайсы?</span>
+            </div>
+            <div class="test-options">
+              <div class="test-opt"><span class="letter">A)</span> Мемлекет белгілейді</div>
+              <div class="test-opt"><span class="letter">B)</span> Заңда жазбаша көрсетіледі</div>
+              <div class="test-opt"><span class="letter">C)</span> Әділеттілікке негізделеді</div>
+              <div class="test-opt"><span class="letter">D)</span> Сот арқылы қорғалады</div>
+            </div>
+          </div>
+          
+          <div class="test-card">
+            <div class="test-q">
+              <span class="test-num">4</span>
+              <span>Құқықтың реттеушілік қызметіне мысал бола алатыны:</span>
+            </div>
+            <div class="test-options">
+              <div class="test-opt"><span class="letter">A)</span> Сот шешімімен құқықты қалпына келтіру</div>
+              <div class="test-opt"><span class="letter">B)</span> Жол қозғалысы ережесінің мінез-құлықты белгілеуі</div>
+              <div class="test-opt"><span class="letter">C)</span> Мектепте заң сабағын өткізу</div>
+              <div class="test-opt"><span class="letter">D)</span> Азаматтың өтініш жазуы</div>
+            </div>
+          </div>
+          
+          <div class="test-card">
+            <div class="test-q">
+              <span class="test-num">5</span>
+              <span>ҚР Конституциясы қабылданған күн:</span>
+            </div>
+            <div class="test-options">
+              <div class="test-opt"><span class="letter">A)</span> 1991 жылғы 16 желтоқсан</div>
+              <div class="test-opt"><span class="letter">B)</span> 1993 жылғы 28 қаңтар</div>
+              <div class="test-opt"><span class="letter">C)</span> 1995 жылғы 30 тамыз</div>
+              <div class="test-opt"><span class="letter">D)</span> 1998 жылғы 1 қыркүйек</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="dots" id="dots"></div>
+
+<div class="nav">
+  <button class="nav-btn" id="prevBtn" aria-label="Алдыңғы слайд">‹</button>
+  <span class="nav-counter" id="counter">1 / 12</span>
+  <button class="nav-btn" id="nextBtn" aria-label="Келесі слайд">›</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  const dotsContainer = document.getElementById('dots');
+  let current = 0;
+  const total = slides.length;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+  const dots = document.querySelectorAll('.dot');
+
+  function goTo(index) {
+    if (index < 0 || index >= total) return;
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    updateUI();
+  }
+
+  function updateUI() {
+    counter.textContent = `${current + 1} / ${total}`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    progress.style.width = ((current + 1) / total * 100) + '%';
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault();
+      goTo(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      goTo(current - 1);
+    } else if (e.key === 'Home') { goTo(0); }
+    else if (e.key === 'End') { goTo(total - 1); }
+  });
+
+  updateUI();
+</script>
+
+</body>
+</html>
